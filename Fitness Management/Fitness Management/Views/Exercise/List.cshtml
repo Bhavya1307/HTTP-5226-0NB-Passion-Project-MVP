@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Fitness_Management.Models.ExerciseDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Exercises</h2>
+
+@foreach (var Item in Model)
+            {
+                <div><a href="Show/@Item.ExerciseId">@Item.ExerciseName</div>
+            }
+
