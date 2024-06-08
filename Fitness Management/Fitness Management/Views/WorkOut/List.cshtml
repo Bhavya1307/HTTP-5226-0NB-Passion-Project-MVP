@@ -16,7 +16,7 @@
         <tr>
             <td>@item.Name</td>
             <td>
-                <a href="/WorkOut/Details/@item.WorkOutId">Details</a>
+                <a href="@Url.Action("Details", "WorkOut", new { id = item.WorkOutId })">Details</a>
             </td>
         </tr>
     }

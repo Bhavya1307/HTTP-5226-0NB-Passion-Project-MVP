@@ -1,0 +1,27 @@
+﻿@model List<Fitness_Management.Models.WorkOutPlan>
+
+@{
+    ViewBag.Title = "List WorkOutPlans";
+}
+
+<h2>List of WorkOutPlans</h2>
+
+<table class="table">
+    <tr>
+        <th>Exercise Name</th>
+        <th>Reps</th>
+        <th>Sets</th>
+        <th>Body Part</th>
+        <!-- Add other columns as needed -->
+    </tr>
+    @foreach (var plan in Model)
+    {
+        <tr>
+            <td>@plan.ExerciseName</td>
+            <td>@plan.Reps</td>
+            <td>@plan.sets</td>
+            <td>@plan.BodyPart</td>
+            <!-- Add other columns as needed -->
+        </tr>
+    }
+</table>

@@ -12,13 +12,6 @@ namespace Fitness_Management.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        /// <summary>
-        /// Returns a list of exercises
-        /// </summary>
-        /// <returns>An array of exercises</returns>
-        /// <example>
-        /// //GET: /api/ExerciseData/ListExercises -> [{"ExerciseId":1,"ExerciseName":"Ab Crunch","Reps":10,"sets":3,"BodyPart":"Abs"},{"ExerciseId":2,"ExerciseName":"Ab Roll Outs","Reps":12,"sets":3,"BodyPart":"Abs"}]
-        /// </example>
         [HttpGet]
         [Route("api/ExerciseData/ListExercises")]
         public List<ExerciseDto> ListExercises()
@@ -27,35 +20,63 @@ namespace Fitness_Management.Controllers
 
             List<ExerciseDto> ExerciseDtos = new List<ExerciseDto>();
 
-            foreach(Exercise Exercise in Exercises)
+            foreach (Exercise Exercise in Exercises)
             {
-                ExerciseDto ExerciseDto = new ExerciseDto();
-                ExerciseDto.ExerciseId = Exercise.ExerciseId;
-                ExerciseDto.ExerciseName = Exercise.ExerciseName;
-                ExerciseDto.Reps = Exercise.Reps;
-                ExerciseDto.sets = Exercise.sets;
-                ExerciseDto.BodyPart = Exercise.BodyPart;
+                ExerciseDto ExerciseDto = new ExerciseDto
+                {
+                    ExerciseId = Exercise.ExerciseId,
+                    ExerciseName = Exercise.ExerciseName,
+                    Reps = Exercise.Reps,
+                    sets = Exercise.sets,
+                    BodyPart = Exercise.BodyPart
+                };
 
                 ExerciseDtos.Add(ExerciseDto);
             }
 
             return ExerciseDtos;
         }
+
+        [HttpGet]
+        [Route("api/ExerciseData/SearchExercises")]
+        public List<ExerciseDto> SearchExercises(string searchString)
+        {
+            var query = $"SELECT * FROM Exercises WHERE ExerciseName LIKE '%{searchString}%'";
+            var exercises = db.Exercises.SqlQuery(query).ToList();
+
+            List<ExerciseDto> ExerciseDtos = new List<ExerciseDto>();
+
+            foreach (Exercise exercise in exercises)
+            {
+                ExerciseDto exerciseDto = new ExerciseDto
+                {
+                    ExerciseId = exercise.ExerciseId,
+                    ExerciseName = exercise.ExerciseName,
+                    Reps = exercise.Reps,
+                    sets = exercise.sets,
+                    BodyPart = exercise.BodyPart
+                };
+
+                ExerciseDtos.Add(exerciseDto);
+            }
+
+            return ExerciseDtos;
+        }
+
         [HttpGet]
         [Route("api/ExerciseData/FindExercise/{id}")]
         public ExerciseDto FindExercise(int Id)
         {
             Exercise Exercise = db.Exercises.Find(Id);
 
-
-            ExerciseDto ExerciseDto = new ExerciseDto();
-            ExerciseDto.ExerciseId = Exercise.ExerciseId;
-            ExerciseDto.ExerciseName = Exercise.ExerciseName;
-            ExerciseDto.Reps = Exercise.Reps;
-            ExerciseDto.sets = Exercise.sets;
-            ExerciseDto.BodyPart = Exercise.BodyPart;
-
-
+            ExerciseDto ExerciseDto = new ExerciseDto
+            {
+                ExerciseId = Exercise.ExerciseId,
+                ExerciseName = Exercise.ExerciseName,
+                Reps = Exercise.Reps,
+                sets = Exercise.sets,
+                BodyPart = Exercise.BodyPart
+            };
 
             return ExerciseDto;
         }

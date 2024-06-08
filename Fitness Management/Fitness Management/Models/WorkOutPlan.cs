@@ -26,3 +26,4 @@ namespace Fitness_Management.Models
         public virtual WorkOut WorkOut { get; set; }
     }
 }
+
