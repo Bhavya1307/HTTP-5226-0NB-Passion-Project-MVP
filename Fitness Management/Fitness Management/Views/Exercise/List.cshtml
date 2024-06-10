@@ -5,8 +5,8 @@
 
 <h2>List of Exercises</h2>
 
-<form method="get" action="@Url.Action("List", "Exercise")">
-    <input type="text" name="searchString" value="@ViewBag.search" placeholder="Search by name..." />
+<form method="get" action="/Exercise/List">
+    <input type="text" name="searchString" value="@ViewBag.search" placeholder="Search by exercise name..." />
     <button class="btn" type="submit">Search</button>
 </form>
 

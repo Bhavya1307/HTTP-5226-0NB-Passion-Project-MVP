@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Fitness_Management.Models;
 
@@ -9,14 +8,131 @@ namespace Fitness_Management.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: WorkOutPlan/List
+        /// <summary>
+        /// Displays a list of all workout plans.
+        /// </summary>
+        /// <returns>A view with a list of workout plans.</returns>
+        /// <example>
+        /// GET: WorkOutPlan/List
+        /// </example>
         public ActionResult List()
         {
-            // Retrieve the list of workout plans from the database
             var workoutPlans = db.WorkOutPlans.ToList();
-
-            // Pass the list of workout plans to the view
             return View(workoutPlans);
+        }
+
+        /// <summary>
+        /// Displays a form for editing a specific workout plan.
+        /// </summary>
+        /// <param name="id">The ID of the workout plan to edit.</param>
+        /// <returns>A view with a form for editing the workout plan.</returns>
+        /// <example>
+        /// GET: WorkOutPlan/Edit/{id}
+        /// </example>
+        public ActionResult Edit(int id)
+        {
+            var workoutPlan = db.WorkOutPlans.Find(id);
+            if (workoutPlan == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new WorkOutPlanDto
+            {
+                WorkOutPlanID = workoutPlan.WorkOutPlanID,
+                ExerciseName = workoutPlan.ExerciseName,
+                Reps = workoutPlan.Reps,
+                sets = workoutPlan.sets,
+                BodyPart = workoutPlan.BodyPart,
+                Notes = workoutPlan.Notes
+            };
+
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// Edits a specific workout plan.
+        /// </summary>
+        /// <param name="workOutPlanDto">The workout plan data transfer object containing updated workout plan details.</param>
+        /// <returns>Redirects to the workout details if successful, otherwise returns the edit view with validation errors.</returns>
+        /// <example>
+        /// POST: WorkOutPlan/Edit/{id}
+        /// </example>
+        [HttpPost]
+        public ActionResult Edit(WorkOutPlanDto workOutPlanDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var workoutPlan = db.WorkOutPlans.Find(workOutPlanDto.WorkOutPlanID);
+                if (workoutPlan == null)
+                {
+                    return HttpNotFound();
+                }
+
+                workoutPlan.ExerciseName = workOutPlanDto.ExerciseName;
+                workoutPlan.Reps = workOutPlanDto.Reps;
+                workoutPlan.sets = workOutPlanDto.sets;
+                workoutPlan.BodyPart = workOutPlanDto.BodyPart;
+                workoutPlan.Notes = workOutPlanDto.Notes;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Details", "WorkOut", new { id = workoutPlan.WorkOutId });
+            }
+
+            return View(workOutPlanDto);
+        }
+
+        /// <summary>
+        /// Displays a confirmation page for deleting a specific workout plan.
+        /// </summary>
+        /// <param name="id">The ID of the workout plan to delete.</param>
+        /// <returns>A view with workout plan details to confirm deletion.</returns>
+        /// <example>
+        /// GET: WorkOutPlan/Delete/{id}
+        /// </example>
+        public ActionResult Delete(int id)
+        {
+            var workoutPlan = db.WorkOutPlans.Find(id);
+            if (workoutPlan == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new WorkOutPlanDto
+            {
+                WorkOutPlanID = workoutPlan.WorkOutPlanID,
+                ExerciseName = workoutPlan.ExerciseName,
+                Reps = workoutPlan.Reps,
+                sets = workoutPlan.sets,
+                BodyPart = workoutPlan.BodyPart,
+                Notes = workoutPlan.Notes
+            };
+
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// Deletes a specific workout plan.
+        /// </summary>
+        /// <param name="id">The ID of the workout plan to delete.</param>
+        /// <returns>Redirects to the workout details after deletion.</returns>
+        /// <example>
+        /// POST: WorkOutPlan/Delete/{id}
+        /// </example>
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var workoutPlan = db.WorkOutPlans.Find(id);
+            if (workoutPlan == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.WorkOutPlans.Remove(workoutPlan);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "WorkOut", new { id = workoutPlan.WorkOutId });
         }
     }
 }

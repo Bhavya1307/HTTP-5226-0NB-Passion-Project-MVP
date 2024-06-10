@@ -1,5 +1,4 @@
-﻿<!-- Views/WorkOut/List.cshtml -->
-@model IEnumerable<Fitness_Management.Models.WorkOutDto>
+﻿@model IEnumerable<Fitness_Management.Models.WorkOutDto>
 @{
     ViewBag.Title = "List WorkOuts";
 }
@@ -17,6 +16,12 @@
             <td>@item.Name</td>
             <td>
                 <a href="@Url.Action("Details", "WorkOut", new { id = item.WorkOutId })">Details</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "WorkOut", new { id = item.WorkOutId })">Edit</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Delete", "WorkOut", new { id = item.WorkOutId })">Delete</a>
             </td>
         </tr>
     }

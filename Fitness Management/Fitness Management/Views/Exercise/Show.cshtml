@@ -11,7 +11,7 @@
     <p>Sets: @Model.Exercise.sets</p>
     <p>Body Part: @Model.Exercise.BodyPart</p>
 
-    <form action="@Url.Action("AddToWorkoutPlan", "Exercise")" method="post">
+    <form action="/Exercise/AddToWorkoutPlan" method="post">
         <input type="hidden" name="Exercise.ExerciseId" value="@Model.Exercise.ExerciseId" />
         <input type="hidden" name="Exercise.ExerciseName" value="@Model.Exercise.ExerciseName" />
         <input type="hidden" name="Exercise.Reps" value="@Model.Exercise.Reps" />

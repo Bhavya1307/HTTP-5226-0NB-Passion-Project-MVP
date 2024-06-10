@@ -9,5 +9,7 @@ namespace Fitness_Management.Models
     {
         public WorkOutDto WorkOut { get; set; }
         public List<ExerciseDto> Exercises { get; set; }
+
+        public int WorkOutPlanID { get; set; }
     }
 }

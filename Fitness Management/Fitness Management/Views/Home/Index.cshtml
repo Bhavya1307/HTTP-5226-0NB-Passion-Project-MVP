@@ -1,13 +1,12 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Home";
 }
 
 <h2>Welcome to PlanFitHub.com</h2>
 
 <div id="maindiv">
-    <a href="@Url.Action("Create", "WorkOut")" class="btn">Create Workout Plan</a>
-    <a href="@Url.Action("List", "WorkOut")" class="btn">View Workout Plans</a>
+    <a href="/WorkOut/Create" class="btn">Create Workout Plan</a>
+    <a href="/WorkOut/List" class="btn">View Workout Plans</a>
 </div>
 
 <style>

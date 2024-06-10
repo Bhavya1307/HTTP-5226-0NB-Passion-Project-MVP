@@ -9,7 +9,16 @@ namespace Fitness_Management.Controllers
 {
     public class ExerciseController : Controller
     {
-        // GET: Exercise/List
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+
+        /// <summary>
+        /// Displays a list of exercises with optional search functionality.
+        /// </summary>
+        /// <param name="searchString">The search string to filter exercises.</param>
+        /// <returns>A view with a list of exercises.</returns>
+        /// <example>
+        /// GET: Exercise/List
+        /// </example>
         public ActionResult List(string searchString)
         {
             HttpClient client = new HttpClient();
@@ -32,7 +41,14 @@ namespace Fitness_Management.Controllers
             return View(Exercises);
         }
 
-        // GET: Exercise/Show/{id}
+        /// <summary>
+        /// Displays details of a specific exercise.
+        /// </summary>
+        /// <param name="id">The ID of the exercise to show.</param>
+        /// <returns>A view with exercise details and associated workouts.</returns>
+        /// <example>
+        /// GET: Exercise/Show/{id}
+        /// </example>
         public ActionResult Show(int id)
         {
             HttpClient client = new HttpClient();
@@ -42,7 +58,6 @@ namespace Fitness_Management.Controllers
 
             ExerciseDto Exercise = response.Content.ReadAsAsync<ExerciseDto>().Result;
 
-            // Fetch all workouts to display in the dropdown
             string workoutsUrl = "https://localhost:44356/api/workoutdata/listworkouts";
             HttpResponseMessage workoutsResponse = client.GetAsync(workoutsUrl).Result;
             IEnumerable<WorkOutDto> WorkOuts = workoutsResponse.Content.ReadAsAsync<IEnumerable<WorkOutDto>>().Result;
@@ -60,10 +75,17 @@ namespace Fitness_Management.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// Adds an exercise to a workout plan.
+        /// </summary>
+        /// <param name="model">The view model containing exercise and workout plan details.</param>
+        /// <returns>Redirects to the exercise list after adding the exercise to the workout plan.</returns>
+        /// <example>
+        /// POST: Exercise/AddToWorkoutPlan
+        /// </example>
         [HttpPost]
         public ActionResult AddToWorkoutPlan(ExerciseWorkOutViewModel model)
         {
-            // Create a new instance of WorkOutPlan
             WorkOutPlan workoutPlan = new WorkOutPlan
             {
                 ExerciseId = model.Exercise.ExerciseId,
@@ -71,17 +93,15 @@ namespace Fitness_Management.Controllers
                 Reps = model.Exercise.Reps,
                 sets = model.Exercise.sets,
                 BodyPart = model.Exercise.BodyPart,
-                WorkOutId = model.WorkOutId // Set the foreign key
+                WorkOutId = model.WorkOutId
             };
 
-            // Add the new workout plan to the database
             using (var db = new ApplicationDbContext())
             {
                 db.WorkOutPlans.Add(workoutPlan);
                 db.SaveChanges();
             }
 
-            // Redirect to the list of workout plans
             return RedirectToAction("List", "Exercise");
         }
     }

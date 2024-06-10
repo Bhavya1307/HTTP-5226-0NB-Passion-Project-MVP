@@ -297,8 +297,11 @@
     <Content Include="Views\WorkOut\Create.cshtml" />
     <Content Include="Views\WorkOut\List.cshtml" />
     <Content Include="Views\WorkOutPlan\Create.cshtml" />
-    <Content Include="Views\WorkOutPlan\List.cshtml" />
     <Content Include="Views\WorkOut\Details.cshtml" />
+    <Content Include="Views\WorkOut\Edit.cshtml" />
+    <Content Include="Views\WorkOut\Delete.cshtml" />
+    <Content Include="Views\WorkOutPlan\Edit.cshtml" />
+    <Content Include="Views\WorkOutPlan\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,4 @@
-﻿// Controllers/WorkOutDataController.cs
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Fitness_Management.Models;
@@ -15,7 +14,10 @@ namespace Fitness_Management.Controllers
         /// </summary>
         /// <returns>An array of workout plans</returns>
         /// <example>
-        /// GET: /api/WorkOutData/ListWorkOuts
+        /// GET: /api/WorkOutData/ListWorkOuts => <WorkOutDto>
+        /// <Name>Chest</Name>
+        /// <WorkOutId>15</WorkOutId>
+        /// </WorkOutDto>
         /// </example>
         [HttpGet]
         [Route("api/WorkOutData/ListWorkOuts")]

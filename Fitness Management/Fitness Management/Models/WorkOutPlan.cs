@@ -25,5 +25,15 @@ namespace Fitness_Management.Models
         public int WorkOutId { get; set; }
         public virtual WorkOut WorkOut { get; set; }
     }
+
+    public class WorkOutPlanDto
+    {
+        public int WorkOutPlanID { get; set; }
+        public string ExerciseName { get; set; }
+        public int Reps { get; set; }
+        public int sets { get; set; }
+        public string BodyPart { get; set; }
+        public string Notes { get; set; }
+    }
 }
 

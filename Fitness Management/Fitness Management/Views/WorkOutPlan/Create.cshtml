@@ -6,8 +6,8 @@
 
 <h2>Create WorkOutPlan</h2>
 
-<form action="@Url.Action("Create", "WorkOutPlan")" method="post" class="form-horizontal">
-    @Html.HiddenFor(model => model.WorkOutId)
+<form action="/WorkOutPlan/Create" method="post" class="form-horizontal">
+    <input type="hidden" name="WorkOutId" value="@Model.WorkOutId" />
 
     <div id="maindiv">
         <div id="nameFlex">
