@@ -68,7 +68,7 @@ For any questions or feedback, please contact [bdp9834@gmail.com](mailto:bdp9834
 ### Steps to run the project
 1. **Clone the repository**:
     ```bash
-    git clone [https://github.com/yourusername/fitness-management.git](https://github.com/Bhavya1307/HTTP-5226-0NB-Passion-Project-MVP.git)
+    git clone https://github.com/Bhavya1307/HTTP-5226-0NB-Passion-Project-MVP.git
     cd fitness-management
     ```
 
